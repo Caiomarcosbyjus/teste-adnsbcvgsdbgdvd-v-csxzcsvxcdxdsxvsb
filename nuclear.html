@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>NUCLEAR</title>
+</head>
+<style>
+    .primeirobotao{
+        width: 100%;
+        background-color: rgb(255, 0, 0);
+        color: blue;
+        height: 40px;
+        font-size: 27px;
+    }.voltakkk{
+        margin-left: 1200px;
+        width: 75px;
+        height: 50px;
+        font-size: 24px;
+    
+    }
+
+</style>
+
+
+<body>
+   <button class="primeirobotao" >Detecção de Objetos</button> 
+   <a href="index.html" class="voltakkk" >Voltar</a>
+   <body background="bg.jpg">
+   <img src="NUCLEARRRR.webp" >
+<h3 id="status" ></h3>
+<script>
+   
+  objectDetector="";
+  objects = [];
+  img = "";
+  status = ""; 
+
+  function preload(){
+    img = loadImage('NUCLEARRRR.webp')
+  }
+
+  function setup(){
+ canvas = crateCanvas(640, 420);
+ canvas.center();
+ objectDetector = ml5.objectDetector('cocossd', modelLoaded);
+ document.getElementById("status").innerHTML = "Status: Detectando Objetos";
+
+  }
+  function modelLoaded(){
+    console.log("Modelo Carregado!")
+    status = true;
+    objectDetector.detect(img, gotResult);
+  }
+
+  function gotResult(){
+    if(error){
+        console.log(error);
+    }
+   console.log(results);
+   objects = results;
+  }
+
+function draw(){
+    if (status != undefined){
+        image(img, 0, 0, 640, 420);
+        for (var i = 0; i < objects.length;i++){
+        document.getElementById("status").innerHTML = "Status Objetos Detectados";
+        fill(255, 0, 0);
+        percent = florr(objects[i].confidence * 100);
+        text(objects[i].label + "" + percent + "%", objects[i].x + 5, objects[i].y + 15);
+        noFill();
+        stroke(255, 0, 0);
+        rect(objects[i].x,objects[i].y, objects.width, objects[i].height);
+        }}}     
+    
+
+
+
+</script>
+</body>
+</html>
